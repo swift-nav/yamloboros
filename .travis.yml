@@ -19,7 +19,7 @@ matrix:
 cache: cargo
 
 script:
-  - ./.travish.sh
+  - ./.travis.sh
 
 _github_api_key: &_github_api_key
   api_key:
