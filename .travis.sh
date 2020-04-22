@@ -14,7 +14,7 @@ if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
   cd target/release || exit 1;
   7z a -tzip ../../y2jj2y_windows.zip yaml2json.exe json2yaml.exe;
   cd ../..;
-  mv y2jj2y_windows.zip "y2jj2y-${VERSION}-windows-${BUILD_TRIPLET}.zip";
+  mv y2jj2y_windows.zip "y2jj2y-${VERSION}-${BUILD_TRIPLET}.zip";
   ls -l;
 fi
 
