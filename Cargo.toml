@@ -1,6 +1,6 @@
 [package]
 name = "y2jj2y"
-version = "1.0.1"
+version = "1.0.2"
 authors = ["Jason Mobarak <jason@swiftnav.com>"]
 edition = "2018"
 

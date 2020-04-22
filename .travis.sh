@@ -12,7 +12,7 @@ echo "BUILD_TRIPLET: $BUILD_TRIPLET"
 
 if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
   cd target/release || exit 1;
-  7z a -tzip ../../y2jj2y_windows.zip yaml2json.exe json2yaml.exe:
+  7z a -tzip ../../y2jj2y_windows.zip yaml2json.exe json2yaml.exe;
   cd ../..;
   mv y2jj2y_windows.zip "y2jj2y-${VERSION}-windows-${BUILD_TRIPLET}.zip";
   ls -l;
