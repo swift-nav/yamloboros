@@ -6,14 +6,15 @@ language: rust
 git:
   submodules: false
 
+env:
+  - CC=clang
+  - CXX=clang++
+
 matrix:
   include:
-
     - os: linux
-
     - os: osx
       osx_image: xcode8
-
     - os: windows
 
 cache: cargo
