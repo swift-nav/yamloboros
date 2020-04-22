@@ -1,0 +1,19 @@
+[package]
+name = "y2jj2y"
+version = "0.1.0"
+authors = ["Jason Mobarak <jason@swiftnav.com>"]
+edition = "2018"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde_yaml = "*"
+serde_json = "*"
+
+[[bin]]
+name = "yaml2json"
+path = "src/yaml2json.rs"
+
+[[bin]]
+name = "json2yaml"
+path = "src/json2yaml.rs"
