@@ -1,5 +1,7 @@
 # y2jj2y
 
+[![Build Status](https://travis-ci.com/swift-nav/y2jj2y.svg?token=Usmy93JBkW76XB4WJAjb&branch=master)](https://travis-ci.com/swift-nav/y2jj2y)
+
 Extremely simple yaml2json and json2yaml CLI tools.
 
 ## yaml2json
