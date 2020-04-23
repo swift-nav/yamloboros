@@ -4,7 +4,7 @@
 
 Extremely simple yaml2json and json2yaml CLI tools.
 
-[![Ouroboros](./img/ouroboros.png)](https://id.wikipedia.org/wiki/Ouroboros)
+<a href="https://id.wikipedia.org/wiki/Ouroboros"><img src="./img/ouroboros.png" height="150px" /></a>
 
 ## Installation
 
