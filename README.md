@@ -1,8 +1,19 @@
-# y2jj2y
+# yamloboros
 
-[![Build Status](https://travis-ci.com/swift-nav/y2jj2y.svg?token=Usmy93JBkW76XB4WJAjb&branch=master)](https://travis-ci.com/swift-nav/y2jj2y)
+[![Build Status](https://travis-ci.com/swift-nav/yamloboros.svg?token=Usmy93JBkW76XB4WJAjb&branch=master)](https://travis-ci.com/swift-nav/yamloboros)
 
 Extremely simple yaml2json and json2yaml CLI tools.
+
+[![Ouroboros](./img/ouroboros.png)](https://id.wikipedia.org/wiki/Ouroboros)
+
+## Installation
+
+```
+cargo install --git ssh://git@github.com/swift-nav/yamloboros.git --bins
+```
+
+Or see the releases page:
+- https://github.com/swift-nav/yamloboros/releases
 
 ## yaml2json
 
