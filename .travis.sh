@@ -12,20 +12,20 @@ echo "BUILD_TRIPLET: $BUILD_TRIPLET"
 
 if [[ "$TRAVIS_OS_NAME" == "windows" ]]; then
   cd target/release || exit 1;
-  7z a -tzip ../../y2jj2y_windows.zip yaml2json.exe json2yaml.exe;
+  7z a -tzip ../../yamloboros_windows.zip yaml2json.exe json2yaml.exe;
   cd ../..;
-  mv y2jj2y_windows.zip "y2jj2y-${VERSION}-${BUILD_TRIPLET}.zip";
+  mv yamloboros_windows.zip "yamloboros-${VERSION}-${BUILD_TRIPLET}.zip";
   ls -l;
 fi
 
 if [[ "$TRAVIS_OS_NAME" == "osx" ]]; then
-  tar -C "target/release" -czf y2jj2y_osx.tar.gz yaml2json json2yaml;
-  mv y2jj2y_osx.tar.gz "y2jj2y-${VERSION}-${BUILD_TRIPLET}.tar.gz";
+  tar -C "target/release" -czf yamloboros_osx.tar.gz yaml2json json2yaml;
+  mv yamloboros_osx.tar.gz "yamloboros-${VERSION}-${BUILD_TRIPLET}.tar.gz";
   ls -l;
 fi
 
 if [[ "$TRAVIS_OS_NAME" == "linux" ]]; then
-  tar -C "target/release" -czf y2jj2y_linux.tar.gz yaml2json json2yaml;
-  mv y2jj2y_linux.tar.gz "y2jj2y-${VERSION}-${BUILD_TRIPLET}.tar.gz";
+  tar -C "target/release" -czf yamloboros_linux.tar.gz yaml2json json2yaml;
+  mv yamloboros_linux.tar.gz "yamloboros-${VERSION}-${BUILD_TRIPLET}.tar.gz";
   ls -l;
 fi
