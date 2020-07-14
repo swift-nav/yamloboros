@@ -1,8 +1,8 @@
 # yamloboros
 
-[![Build Status](https://travis-ci.com/swift-nav/y2jj2y.svg?token=Usmy93JBkW76XB4WJAjb&branch=master)](https://travis-ci.com/swift-nav/y2jj2y)
+[![Build Status](https://travis-ci.com/swift-nav/yamloboros.svg?branch=master)](https://travis-ci.com/swift-nav/yamloboros)
 
-Extremely simple yaml2json and json2yaml CLI tools.
+Extremely simple yaml2json and json2yaml CLI tools.  Basically just CLI wrappers around [serde_yaml](https://docs.serde.rs/serde_yaml/index.html) and [serde_json](https://docs.serde.rs/serde_json/).
 
 <a href="https://id.wikipedia.org/wiki/Ouroboros"><img src="./img/ouroboros.png" height="150px" /></a>
 
@@ -64,3 +64,7 @@ THIS CODE AND INFORMATION IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND,
 EITHER EXPRESSED OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE IMPLIED
 WARRANTIES OF MERCHANTABILITY AND/OR FITNESS FOR A PARTICULAR PURPOSE.
 ```
+
+## Logo
+
+Logo declared "public domain" per [wikimedia](https://commons.wikimedia.org/wiki/File:Ouroboros-simple.svg).
