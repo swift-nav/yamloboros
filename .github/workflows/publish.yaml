@@ -13,10 +13,13 @@ jobs:
         include:
           - os: ubuntu-18.04
             binary_target: x86_64-unknown-linux-musl
+            output_suffix:
           - os: windows-2019
             binary_target: x86_64-pc-windows-msvc
+            output_suffix: .exe
           - os: macos-10.15
             binary_target: x86_64-apple-darwin
+            output_suffix:
     steps:
     - name: Install musl tools
       if: matrix.os == 'ubuntu-18.04'
@@ -40,6 +43,7 @@ jobs:
     - name: Build Binary
       run: "
         cargo make zip-release-ci-flow
+          --env CARGO_MAKE_OUTPUT_SUFFIX=${{ matrix.output_suffix }}
           --env CARGO_MAKE_RELEASE_FLOW_TARGET=${{ matrix.binary_target }}
           --env CARGO_MAKE_PROJECT_VERSION=${{ steps.git_describe.outputs.result }}"
     - name: Upload Binaries

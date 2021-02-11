@@ -10,8 +10,8 @@ env = { "OUTPUT_NAME" = "${CARGO_MAKE_PROJECT_NAME}-${CARGO_MAKE_PROJECT_VERSION
 script_runner = "@shell"
 script = '''
 mkdir ${OUTPUT_NAME}
-cp target/$CARGO_MAKE_RELEASE_FLOW_TARGET/release/yaml2json ${OUTPUT_NAME}/
-cp target/$CARGO_MAKE_RELEASE_FLOW_TARGET/release/json2yaml ${OUTPUT_NAME}/
+cp target/$CARGO_MAKE_RELEASE_FLOW_TARGET/release/yaml2json${CARGO_MAKE_OUTPUT_SUFFIX} ${OUTPUT_NAME}/
+cp target/$CARGO_MAKE_RELEASE_FLOW_TARGET/release/json2yaml${CARGO_MAKE_OUTPUT_SUFFIX} ${OUTPUT_NAME}/
 cp README.md LICENSE* ${OUTPUT_NAME}/
 zip -r ${OUTPUT_NAME}.zip ${OUTPUT_NAME}
 '''
