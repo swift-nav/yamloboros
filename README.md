@@ -1,6 +1,6 @@
 # yamloboros
 
-[![Build Status](https://travis-ci.com/swift-nav/yamloboros.svg?branch=master)](https://travis-ci.com/swift-nav/yamloboros)
+![CI](https://github.com/swift-nav/yamloboros/workflows/CI/badge.svg)
 
 Extremely simple yaml2json and json2yaml CLI tools.  Basically just CLI wrappers around [serde_yaml](https://docs.serde.rs/serde_yaml/index.html) and [serde_json](https://docs.serde.rs/serde_json/).
 
