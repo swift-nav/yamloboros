@@ -29,6 +29,8 @@ jobs:
         toolchain: stable-${{ matrix.binary_target }}
         profile: minimal
     - uses: davidB/rust-cargo-make@v1
+      with:
+        version: 0.32.12
     - name: Pull tags
       run: git fetch --tags --prune --unshallow --force
     - name: Fetch `git describe --tags`
