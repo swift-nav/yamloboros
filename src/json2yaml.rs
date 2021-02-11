@@ -20,7 +20,7 @@ fn main() -> Result<()> {
     let json: serde_json::Value = serde_json::from_reader(io::stdin())?;
     serde_yaml::to_writer(io::stdout(), &json)
         .map(|x| {
-            println!("");
+            println!();
             x
         })
         .map_err(|e| e.into())
