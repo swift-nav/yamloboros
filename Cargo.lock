@@ -64,7 +64,7 @@ dependencies = [
 
 [[package]]
 name = "yamloboros"
-version = "1.0.9-alpha.0"
+version = "1.0.9"
 dependencies = [
  "serde_json",
  "serde_yaml",
