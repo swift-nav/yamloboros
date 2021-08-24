@@ -1,6 +1,6 @@
 [package]
 name = "yamloboros"
-version = "1.0.14"
+version = "1.0.15-alpha.0"
 authors = ["Jason Mobarak <jason@swiftnav.com>"]
 edition = "2018"
 publish = false
