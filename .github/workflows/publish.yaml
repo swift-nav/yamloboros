@@ -31,7 +31,8 @@ jobs:
         toolchain: stable-${{ matrix.binary_target }}
         profile: minimal
     - uses: davidB/rust-cargo-make@v1
-    - id: get_tag
+    - name: Get tag
+      id: get_tag
       shell: bash
       run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
     - name: Build Binary
@@ -61,7 +62,8 @@ jobs:
     runs-on: ubuntu-18.04
     needs: [ build ]
     steps:
-      - id: get_tag
+      - name: Get tag
+        id: get_tag
         shell: bash
         run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
       - name: Hook into package registry
