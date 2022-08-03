@@ -13,16 +13,16 @@ jobs:
         include:
           - os: ubuntu-18.04
             binary_target: x86_64-unknown-linux-musl
+            needs_musl: true
           - os: windows-2019
             binary_target: x86_64-pc-windows-msvc
           - os: macos-11
             binary_target: x86_64-apple-darwin
-    outputs:
-      version: ${{ steps.git_describe.outputs.result }}
     steps:
     - name: Install musl tools
-      if: matrix.os == 'ubuntu-18.04'
+      if: matrix.needs_musl
       run: sudo apt-get install musl-tools
+
     - name: Checkout
       uses: actions/checkout@v2
     - name: Install rust for target ${{ matrix.binary_target }}
@@ -31,19 +31,27 @@ jobs:
         toolchain: stable-${{ matrix.binary_target }}
         profile: minimal
     - uses: davidB/rust-cargo-make@v1
-      with:
-        version: 0.32.12
     - name: Pull tags
       run: git fetch --tags --prune --unshallow --force
     - name: Fetch `git describe --tags`
       id: git_describe
-      run: |
-        echo "::set-output name=result::$(git describe --tags)"
+      run: echo "::set-output name=result::$(git describe --tags)"
+
+    - name: Get tag debug
+      id: get_tag
+      run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/*}
     - name: Build Binary
       run: |
-        cargo make zip-release-ci-flow
-          --env CARGO_MAKE_RELEASE_FLOW_TARGET=${{ matrix.binary_target }}
-          --env CARGO_MAKE_PROJECT_VERSION=${{ steps.git_describe.outputs.result }}"
+        touch LICENSE.txt
+        cargo make \
+          --no-workspace \
+          --env CARGO_MAKE_RELEASE_FLOW_TARGET=${{ matrix.binary_target }} \
+          --env CARGO_MAKE_PROJECT_VERSION=${{ steps.git_describe.outputs.result }} \
+          zip-release-ci-flow
+        ls *.zip
+# debug tag
+        echo ${{ steps.get_tag.outputs.tag }}
+
     - name: Upload Binaries
       uses: svenstaro/upload-release-action@v1-release
       with:
@@ -58,12 +66,15 @@ jobs:
     runs-on: ubuntu-18.04
     needs: [ build ]
     steps:
+      - name: Fetch `git describe --tags`
+        id: git_describe
+        run: echo "::set-output name=result::$(git describe --tags)"
       - name: Hook into package registry
         uses: swift-nav/swift-cli-publisher@v2
         env:
-          DL_LINUX: "yamloboros-${{ needs.build.outputs.version }}-x86_64-unknown-linux-musl.zip"
-          DL_MAC: "yamloboros-${{ needs.build.outputs.version }}-x86_64-apple-darwin.zip"
-          DL_WIN: "yamloboros-${{ needs.build.outputs.version }}-x86_64-pc-windows-msvc.zip"
+          DL_LINUX: "yamloboros-${{ steps.git_describe.outputs.result }}-x86_64-unknown-linux-musl.zip"
+          DL_MAC: "yamloboros-${{ steps.git_describe.outputs.result }}-x86_64-apple-darwin.zip"
+          DL_WIN: "yamloboros-${{ steps.git_describe.outputs.result }}-x86_64-pc-windows-msvc.zip"
           TOOLS: "json2yaml,yaml2json"
         with:
           token: ${{ secrets.GH_TOKEN }}
