@@ -31,22 +31,17 @@ jobs:
         toolchain: stable-${{ matrix.binary_target }}
         profile: minimal
     - uses: davidB/rust-cargo-make@v1
-    - name: Pull tags
-      run: git fetch --tags --prune --unshallow --force
-    - name: Fetch `git describe --tags`
-      id: git_describe
-      run: echo "::set-output name=result::$(git describe --tags)"
-
-    - name: Get tag debug
-      id: get_tag
-      run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/*}
+    - id: get_tag
+      shell: bash
+      run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
     - name: Build Binary
+      shell: bash
       run: |
         touch LICENSE.txt
         cargo make \
           --no-workspace \
           --env CARGO_MAKE_RELEASE_FLOW_TARGET=${{ matrix.binary_target }} \
-          --env CARGO_MAKE_PROJECT_VERSION=${{ steps.git_describe.outputs.result }} \
+          --env CARGO_MAKE_PROJECT_VERSION=${{ steps.get_tag.outputs.tag }} \
           zip-release-ci-flow
         ls *.zip
 # debug tag
@@ -66,15 +61,15 @@ jobs:
     runs-on: ubuntu-18.04
     needs: [ build ]
     steps:
-      - name: Fetch `git describe --tags`
-        id: git_describe
-        run: echo "::set-output name=result::$(git describe --tags)"
+      - id: get_tag
+        shell: bash
+        run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
       - name: Hook into package registry
         uses: swift-nav/swift-cli-publisher@v2
         env:
-          DL_LINUX: "yamloboros-${{ steps.git_describe.outputs.result }}-x86_64-unknown-linux-musl.zip"
-          DL_MAC: "yamloboros-${{ steps.git_describe.outputs.result }}-x86_64-apple-darwin.zip"
-          DL_WIN: "yamloboros-${{ steps.git_describe.outputs.result }}-x86_64-pc-windows-msvc.zip"
+          DL_LINUX: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-unknown-linux-musl.zip"
+          DL_MAC: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-apple-darwin.zip"
+          DL_WIN: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-pc-windows-msvc.zip"
           TOOLS: "json2yaml,yaml2json"
         with:
           token: ${{ secrets.GH_TOKEN }}
