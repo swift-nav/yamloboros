@@ -34,7 +34,7 @@ jobs:
     - name: Get tag
       id: get_tag
       shell: bash
-      run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
+      run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/*}
     - name: Build Binary
       shell: bash
       run: |
@@ -65,7 +65,7 @@ jobs:
       - name: Get tag
         id: get_tag
         shell: bash
-        run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
+        run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/*}
       - name: Hook into package registry
         uses: swift-nav/swift-cli-publisher@v2
         env:
