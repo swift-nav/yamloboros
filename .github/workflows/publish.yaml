@@ -11,36 +11,60 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - os: ubuntu-18.04
+          - os: ubuntu-20.04
             binary_target: x86_64-unknown-linux-musl
+            profile: release+static+x86_64
+            needs_musl: true
+          - os: ubuntu-20.04
+            binary_target: aarch64-unknown-linux-musl
+            profile: release+static+aarch64
             needs_musl: true
           - os: windows-2019
             binary_target: x86_64-pc-windows-msvc
+            profile: release
           - os: macos-11
             binary_target: x86_64-apple-darwin
+            profile: release
     steps:
+
     - name: Install musl tools
       if: matrix.needs_musl
-      run: sudo apt-get install musl-tools
+      run: >-
+        sudo apt-get update &&
+        sudo apt-get install
+        clang
+        llvm
+        musl-tools
+        gcc-aarch64-linux-gnu
+        g++-aarch64-linux-gnu
+        binutils-aarch64-linux-gnu
+        qemu-user
 
     - name: Checkout
       uses: actions/checkout@v2
+
     - name: Install rust for target ${{ matrix.binary_target }}
       uses: actions-rs/toolchain@v1
       with:
-        toolchain: stable-${{ matrix.binary_target }}
+        toolchain: stable
+        target: ${{ matrix.binary_target }}
         profile: minimal
+        default: true
+
     - uses: davidB/rust-cargo-make@v1
+
     - name: Get tag
       id: get_tag
       shell: bash
       run: echo ::set-output name=tag::${GITHUB_REF##refs/tags/}
+
     - name: Build Binary
       shell: bash
       run: |
         touch LICENSE.txt
         cargo make \
           --no-workspace \
+          --profile ${{ matrix.profile }} \
           --env CARGO_MAKE_RELEASE_FLOW_TARGET=${{ matrix.binary_target }} \
           --env CARGO_MAKE_PROJECT_VERSION=${{ steps.get_tag.outputs.tag }} \
           zip-release-ci-flow
@@ -58,8 +82,8 @@ jobs:
         
   post-build:
     name: Post Build
-    runs-on: ubuntu-18.04
-    needs: [ build ]
+    runs-on: ubuntu-20.04
+    needs: [build]
     steps:
       - name: Get tag
         id: get_tag
