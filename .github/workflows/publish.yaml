@@ -25,6 +25,9 @@ jobs:
           - os: macos-11
             binary_target: x86_64-apple-darwin
             profile: release
+          - os: macos-11
+            binary_target: aarch64-apple-darwin
+            profile: release
     steps:
 
     - name: Install musl tools
@@ -92,8 +95,10 @@ jobs:
       - name: Hook into package registry
         uses: swift-nav/swift-cli-publisher@v2
         env:
-          DL_LINUX: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-unknown-linux-musl.zip"
-          DL_MAC: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-apple-darwin.zip"
+          DL_LINUX_aarch64: "yamloboros-${{ steps.get_tag.outputs.tag }}-aarch64-unknown-linux-musl.zip"
+          DL_LINUX_x86_64: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-unknown-linux-musl.zip"
+          DL_MAC_aarch64: "yamloboros-${{ steps.get_tag.outputs.tag }}-aarch64-apple-darwin.zip"
+          DL_MAC_x86_64: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-apple-darwin.zip"
           DL_WIN: "yamloboros-${{ steps.get_tag.outputs.tag }}-x86_64-pc-windows-msvc.zip"
           TOOLS: "json2yaml,yaml2json"
         with:
